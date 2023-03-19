@@ -10,7 +10,7 @@ public class Main {
     public static void main(String[] args) {
 
         try {
-
+            //какое-то изменение
 
             Scanner scan = new Scanner(System.in);
             boolean exit = false;
