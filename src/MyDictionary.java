@@ -15,7 +15,16 @@ public class MyDictionary {
         vR=valRegex;
     }
 
-    public Map<String,String> swapValueToKey(Map<String,String> map)
+    public Map<String,String> GetDictionary()
+    {
+        return dictionary;
+    }
+    public void SetDictionary(Map<String,String> map)
+    {
+        dictionary = map;
+    }
+
+    public void swapValueToKey()
     {
         Map<String,String> result = new HashMap<>();
 
@@ -24,26 +33,24 @@ public class MyDictionary {
         kR = vR;
         vR = tStr;
 
-        for (Map.Entry entry: map.entrySet())
+        for (Map.Entry entry: dictionary.entrySet())
         {
             result.put(entry.getValue().toString(),entry.getKey().toString());
         }
 
-        return map;
     }
-    public Map<String, String> readfromfile(String path, Integer language) // прочитать словарь из файла
+    public void readfromfile(String path) // прочитать словарь из файла
     {
-        Map<String,String> result = new HashMap<>();
         try
         {
             File file = new File(path);
             FileReader fr = new FileReader(file);
             BufferedReader buf = new BufferedReader(fr);
             String line = buf.readLine();
-            dictionaryPutString(result, line,language);
+            dictionaryPutString( line);
             while (line !=null)
             {
-                dictionaryPutString(result, line, language);
+                dictionaryPutString( line);
                 line = buf.readLine();
             }
         } catch (IOException e)
@@ -51,9 +58,8 @@ public class MyDictionary {
             e.printStackTrace();
         }
         System.out.println("Файл успешно прочитан");
-        return result;
     }
-    public void dictionaryPutString(Map map, String string, Integer language) //метод добавляющий строку в словарь если она удовлетворяет условиям одного из языков
+    public void dictionaryPutString(String string) //метод добавляющий строку в словарь если она удовлетворяет условиям одного из языков
     {
         String key ="";
         String value ="";
@@ -64,7 +70,7 @@ public class MyDictionary {
 
             if( key.matches(kR) && value.matches(vR))
             {
-                map.putIfAbsent(key, value);
+                dictionary.putIfAbsent(key, value);
                 System.out.println("Строка \"" + string + "\" добалвена в словарь");
             }
             else
@@ -73,7 +79,7 @@ public class MyDictionary {
         else
             System.out.println("Строка \"" + string + "\" не удовлетворяет условиям словаря");
     }
-    public  void printDictionary(Map dictionary) //вывод словаря
+    public  void printDictionary() //вывод словаря
     {
         System.out.println("---");
         dictionary.forEach((key,value) -> {System.out.println(key + " - " + value);});
