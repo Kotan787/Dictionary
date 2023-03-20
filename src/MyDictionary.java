@@ -7,25 +7,25 @@ import java.util.Map;
 
 public class MyDictionary {
     Map<String,String> dictionary = new HashMap<String,String>();
-    String kR= "";
-    String vR= "";
+    String kR;
+    String vR;
+    public MyDictionary()
+    {
+        kR="";
+        vR="";
+    }
     public MyDictionary(String keyRegex, String valRegex)
     {
         kR=keyRegex;
         vR=valRegex;
-       // System.out.println(kR + "|" + vR);
     }
-
+    //свойства для выдачи словаря
     public Map<String,String> GetDictionary()
     {
         return dictionary;
     }
-    public void SetDictionary(Map<String,String> map)
-    {
-        dictionary = map;
-    }
 
-    public void swapValueToKey()
+    public void swapValueToKey() // поменять местами ключи и значения
     {
         Map<String,String> result = new HashMap<>();
 
@@ -100,7 +100,7 @@ public class MyDictionary {
         }
     }
 
-    public String searchKey(String key)
+    public String searchKey(String key) // поиск по ключу строки
     {
         if (dictionary.containsKey(key))
         {

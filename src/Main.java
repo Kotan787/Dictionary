@@ -10,19 +10,11 @@ public class Main {
     public static void main(String[] args) {
 
         try {
-            //какое-то изменение
 
             Scanner scan = new Scanner(System.in);
             boolean exit = false;
 
-            Map<String, String>[] library = new Map[3];
-            for (int i = 0; i < library.length; i++) {
-                library[i] = new HashMap<>();
-            }
-
             MyDictionary mD = new MyDictionary("^[a-zA-Z]{4}$","^\\d{5}$");
-
-
 
             String path = "";
 
@@ -43,14 +35,10 @@ public class Main {
                         path = "";
                         System.out.println("Введите путь к файлу: ");
                         path = scan.next();
-                        System.out.println("Введите номер словаря котоырй хотим заполнить: ");
-
                         mD.readFromFile(path);
                         mD.printDictionary();
-
                         break;
                     case 2:
-
                         mD.printDictionary();
                         break;
                     case 3:
