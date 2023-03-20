@@ -59,7 +59,6 @@ public class Main {
                         String kdelete = scan.next();
                         mD.deleteKey(kdelete);
 
-
                         break;
                     case 4:
 
