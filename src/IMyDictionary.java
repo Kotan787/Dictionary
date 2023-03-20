@@ -1,4 +1,4 @@
-public interface IMyDictionary
+public interface IMyDictionary//интерфейс для класса словаря
 {
     public void swapValueToKey();
     public void readFromFile(String path);
