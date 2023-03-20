@@ -13,6 +13,7 @@ public class MyDictionary {
     {
         kR=keyRegex;
         vR=valRegex;
+       // System.out.println(kR + "|" + vR);
     }
 
     public Map<String,String> GetDictionary()
@@ -37,9 +38,9 @@ public class MyDictionary {
         {
             result.put(entry.getValue().toString(),entry.getKey().toString());
         }
-
+        dictionary = result;
     }
-    public void readfromfile(String path) // прочитать словарь из файла
+    public void readFromFile(String path) // прочитать словарь из файла
     {
         try
         {
@@ -74,15 +75,42 @@ public class MyDictionary {
                 System.out.println("Строка \"" + string + "\" добалвена в словарь");
             }
             else
-                System.out.println("Строка \"" + string + "\" не удовлетворяет условиям словаря");
+                System.out.println("Строка \"" + string + "\" не удовлетворяет условиям словаря по ключу или значению");
         }
         else
-            System.out.println("Строка \"" + string + "\" не удовлетворяет условиям словаря");
+            System.out.println("Строка \"" + string + "\" не удовлетворяет условиям словаря, неверная запись");
     }
     public  void printDictionary() //вывод словаря
     {
+        System.out.println("Словарь: ");
         System.out.println("---");
         dictionary.forEach((key,value) -> {System.out.println(key + " - " + value);});
         System.out.println("---");
     }
+    public void deleteKey(String key)
+    {
+        if (dictionary.containsKey(key))
+        {
+            dictionary.remove(key);
+            System.out.println("Введенный ключ успешно удален!");
+        }
+        else
+        {
+            System.out.println("Введенный ключ не найден в выбранном словаре!");
+        }
+    }
+
+    public String searchKey(String key)
+    {
+        if (dictionary.containsKey(key))
+        {
+          return  dictionary.get(key);
+        }
+        else
+        {
+            System.out.println("Введенный ключ не найден в выбранном словаре!");
+            return "";
+        }
+    }
+
 }
