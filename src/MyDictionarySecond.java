@@ -5,40 +5,21 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-public class MyDictionary {
+public class MyDictionarySecond implements IMyDictionary{
     Map<String,String> dictionary = new HashMap<String,String>();
-    String kR;
-    String vR;
-    public MyDictionary()
-    {
-        kR="";
-        vR="";
-    }
-    public MyDictionary(String keyRegex, String valRegex)
-    {
-        kR=keyRegex;
-        vR=valRegex;
-    }
+    String kR =  "^\\d{5}$";
+    String vR = "^[a-zA-Z]{4}$";
+
     //свойства для выдачи словаря
     public Map<String,String> GetDictionary()
     {
         return dictionary;
     }
 
-    public void swapValueToKey() // поменять местами ключи и значения
+
+    public void writeToFile(String path)
     {
-        Map<String,String> result = new HashMap<>();
 
-        String tStr;
-        tStr = kR;
-        kR = vR;
-        vR = tStr;
-
-        for (Map.Entry entry: dictionary.entrySet())
-        {
-            result.put(entry.getValue().toString(),entry.getKey().toString());
-        }
-        dictionary = result;
     }
     public void readFromFile(String path) // прочитать словарь из файла
     {
@@ -104,7 +85,7 @@ public class MyDictionary {
     {
         if (dictionary.containsKey(key))
         {
-          return  dictionary.get(key);
+            return  dictionary.get(key);
         }
         else
         {
@@ -114,3 +95,4 @@ public class MyDictionary {
     }
 
 }
+
