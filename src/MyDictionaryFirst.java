@@ -7,18 +7,12 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-public class MyDictionaryFirst implements IMyDictionary {
+public class MyDictionaryFirst extends MyDictionaryAny implements IMyDictionary {
     Map<String, String> dictionary = new HashMap<String, String>();
     String kR = "^[a-zA-Z]{4}$";
     String vR = "^\\d{5}$";
 
-    //свойства для выдачи словаря
-//    public Map<String, String> GetDictionary() {
-//        return dictionary;
-//    }
-
-    public String toString()
-    {
+    public String toString() {
         String stringDictionary = "";
         for (Map.Entry<String, String> entry : dictionary.entrySet()) {
             stringDictionary += entry.getKey() + " - " + entry.getValue() + "\n";
@@ -26,15 +20,12 @@ public class MyDictionaryFirst implements IMyDictionary {
         return stringDictionary;
     }
 
-    public  boolean writeToFile(String path) {
-        try(FileWriter writer = new FileWriter(path, false))
-        {
+    public boolean writeToFile(String path) {
+        try (FileWriter writer = new FileWriter(path, false)) {
             writer.write(toString());
             writer.flush();
             System.out.println("Файл  успешно записан: " + path);
-        }
-        catch(IOException ex)
-        {
+        } catch (IOException ex) {
             System.out.println(ex.getMessage());
             return false;
         }
@@ -44,37 +35,41 @@ public class MyDictionaryFirst implements IMyDictionary {
     public boolean readFromFile(String path) // прочитать словарь из файла
     {
         File file = new File(path);
-        try(FileReader fr = new FileReader(file);  BufferedReader buf = new BufferedReader(fr))
-        {
+        try (FileReader fr = new FileReader(file); BufferedReader buf = new BufferedReader(fr)) {
             String line = buf.readLine();
-            dictionaryPutString(line);
+            dictionaryPutString(line, false);
             while (line != null) {
-                dictionaryPutString(line);
+                dictionaryPutString(line, false);
                 line = buf.readLine();
             }
         } catch (FileNotFoundException e) {
             System.out.println("Файл с данным именем не найден");
             return false;
-        }catch (Exception e)
-        {
-            System.out.println( e.getMessage());
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
             return false;
-        }
-        finally {
+        } finally {
             printDictionary();
         }
         System.out.println("Файл успешно прочитан");
         return true;
     }
 
-    public void dictionaryPutString(String string) //метод добавляющий строку в словарь если она удовлетворяет условиям одного из языков
+    public void dictionaryPutString(String string, boolean invert) //метод добавляющий строку в словарь если она удовлетворяет условиям одного из языков
     {
         String key;
         String value;
 
         if (string.contains(" - ")) {
-            key = string.substring(0, string.indexOf('-') - 1);
-            value = string.substring(string.indexOf('-') + 2);
+            int index = string.indexOf('-');
+            if (invert) {
+                value = string.substring(0, index - 1);
+                key = string.substring(index + 2);
+
+            } else {
+                key = string.substring(0, index - 1);
+                value = string.substring(index + 2);
+            }
 
             if (key.matches(kR) && value.matches(vR)) {
                 dictionary.putIfAbsent(key, value);

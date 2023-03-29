@@ -7,28 +7,10 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-public class MyDictionarySecond extends MyDictionaryAny implements IMyDictionary {
+public class MyDictionaryAny implements IMyDictionary {
     Map<String, String> dictionary = new HashMap<String, String>();
-    String kR = "^\\d{5}$";
-    String vR = "^[a-zA-Z]{4}$";
-
-    public Map<String, String> swapValueToKey() // поменять местами ключи и значения
-    {
-        Map<String, String> result = new HashMap<>();
-
-        for (Map.Entry entry : dictionary.entrySet()) {
-            result.put(entry.getValue().toString(), entry.getKey().toString());
-        }
-        return result;
-    }
-
-    public String mapToString(Map<String, String> map) {
-        String stringDictionary = "";
-        for (Map.Entry<String, String> entry : map.entrySet()) {
-            stringDictionary += entry.getKey() + " - " + entry.getValue() + "\n";
-        }
-        return stringDictionary;
-    }
+    String kR = "^.*$";
+    String vR = "^.*$";
 
     public String toString() {
         String stringDictionary = "";
@@ -40,7 +22,7 @@ public class MyDictionarySecond extends MyDictionaryAny implements IMyDictionary
 
     public boolean writeToFile(String path) {
         try (FileWriter writer = new FileWriter(path, false)) {
-            writer.write(mapToString(swapValueToKey()));
+            writer.write(toString());
             writer.flush();
             System.out.println("Файл  успешно записан: " + path);
         } catch (IOException ex) {
@@ -55,7 +37,7 @@ public class MyDictionarySecond extends MyDictionaryAny implements IMyDictionary
         File file = new File(path);
         try (FileReader fr = new FileReader(file); BufferedReader buf = new BufferedReader(fr)) {
             String line = buf.readLine();
-            dictionaryPutString(line, true);
+            dictionaryPutString(line, false);
             while (line != null) {
                 dictionaryPutString(line, false);
                 line = buf.readLine();
@@ -102,7 +84,7 @@ public class MyDictionarySecond extends MyDictionaryAny implements IMyDictionary
     {
         System.out.println("Словарь: ");
         System.out.println("---");
-        System.out.println(mapToString(dictionary));
+        System.out.println(toString());
         System.out.println("---");
     }
 

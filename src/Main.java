@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
 /*
- 2 словаря с раными регулярками от интерфейса
+ +2 словаря с раными регулярками от интерфейса
  +выбор словаря
  +переиминовать нормально переменные
  +обрабатывать оишбки нормально
@@ -24,13 +24,14 @@ public class Main {
 
     public static void main(String[] args) {
 
-        try (Scanner scan = new Scanner(System.in)){
+        try (Scanner scan = new Scanner(System.in)) {
 
             boolean exitFunctionsMenu = false;
             boolean exitDictionaryMenu = false;
 
             MyDictionaryFirst dictionaryFirst = new MyDictionaryFirst();
-         //   MyDictionarySecond dictionarySecond = new MyDictionarySecond();
+            MyDictionarySecond dictionarySecond = new MyDictionarySecond();
+            MyDictionaryAny dictionaryActive = new MyDictionaryAny();
             String path;
             int menuInput;
 
@@ -49,13 +50,13 @@ public class Main {
 
                 switch (menuInput) {
                     case 1:
-                        //   dictionaryActive = dictionaryFirst;
+                        dictionaryActive = dictionaryFirst;
                         System.out.println("Словарь 1 выбран \n");
                         exitFunctionsMenu = false;
                         exitDictionaryMenu = true;
                         break;
                     case 2:
-                        //      dictionaryActive = dictionarySecond;
+                        dictionaryActive = dictionarySecond;
                         System.out.println("Словарь 2 выбран \n");
                         exitFunctionsMenu = false;
                         exitDictionaryMenu = true;
@@ -88,25 +89,25 @@ public class Main {
                         case 1:
                             System.out.println("Введите путь к файлу: ");
                             path = scan.next();
-                            dictionaryFirst.readFromFile(path);
+                            dictionaryActive.readFromFile(path);
                             break;
                         case 2:
                             System.out.println("Введите путь к файлу: ");
                             path = scan.next();
-                            dictionaryFirst.writeToFile(path);
+                            dictionaryActive.writeToFile(path);
                             break;
                         case 3:
-                            dictionaryFirst.printDictionary();
+                            dictionaryActive.printDictionary();
                             break;
                         case 4:
                             System.out.println("Введите ключ по которому необходимо удалить запись в словаре: ");
                             String keyDelete = scan.next();
-                            dictionaryFirst.deleteKey(keyDelete);
+                            dictionaryActive.deleteKey(keyDelete);
                             break;
                         case 5:
                             System.out.println("Введите ключ по которому необходимо найти запись в словаре: ");
                             String keySearch = scan.next();
-                            String val = dictionaryFirst.searchKey(keySearch);
+                            String val = dictionaryActive.searchKey(keySearch);
                             System.out.println("Значение по запрошеному ключу: " + val);
                             break;
                         case 6:
@@ -115,7 +116,7 @@ public class Main {
                             System.out.println("Введите значение: ");
                             String valueAdd = scan.next();
                             keyAdd += " - " + valueAdd;
-                            dictionaryFirst.dictionaryPutString(keyAdd);
+                            dictionaryActive.dictionaryPutString(keyAdd, false);
                             break;
                         case 7:
                             exitFunctionsMenu = true;
