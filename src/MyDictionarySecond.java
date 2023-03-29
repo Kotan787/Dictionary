@@ -17,11 +17,10 @@ public class MyDictionarySecond implements IMyDictionary{
     }
 
 
-    public void writeToFile(String path)
-    {
-
+    public  boolean writeToFile(String path) {
+        return false;
     }
-    public void readFromFile(String path) // прочитать словарь из файла
+    public boolean readFromFile(String path) // прочитать словарь из файла
     {
         try
         {
@@ -40,6 +39,7 @@ public class MyDictionarySecond implements IMyDictionary{
             e.printStackTrace();
         }
         System.out.println("Файл успешно прочитан");
+        return false;
     }
     public void dictionaryPutString(String string) //метод добавляющий строку в словарь если она удовлетворяет условиям одного из языков
     {
