@@ -57,7 +57,7 @@ public class MyDictionarySecond extends MyDictionaryAny implements IMyDictionary
             String line = buf.readLine();
             dictionaryPutString(line, true);
             while (line != null) {
-                dictionaryPutString(line, false);
+                dictionaryPutString(line, true);
                 line = buf.readLine();
             }
         } catch (FileNotFoundException e) {
