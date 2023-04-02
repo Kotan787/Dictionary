@@ -55,13 +55,12 @@ public class MyDictionarySecond extends MyDictionaryAny implements IMyDictionary
         File file = new File(path);
         try (FileReader fr = new FileReader(file); BufferedReader buf = new BufferedReader(fr)) {
             String line = buf.readLine();
-            dictionaryPutString(line, true);
             while (line != null) {
                 dictionaryPutString(line, true);
                 line = buf.readLine();
             }
         } catch (FileNotFoundException e) {
-            System.out.println("Файл с данным именем не найден");
+            System.out.println("Файл с данным именем (" + path + ") не найден");
             return false;
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -104,6 +103,10 @@ public class MyDictionarySecond extends MyDictionaryAny implements IMyDictionary
         System.out.println("---");
         System.out.println(mapToString(dictionary));
         System.out.println("---");
+    }
+
+    public void clearDictionary() {
+        dictionary.clear();
     }
 
     public void deleteKey(String key) {

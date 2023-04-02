@@ -23,7 +23,6 @@ public class Main {
     }
 
     public static void main(String[] args) {
-
         try (Scanner scan = new Scanner(System.in)) {
 
             boolean exitFunctionsMenu = false;
@@ -33,6 +32,7 @@ public class Main {
             MyDictionarySecond dictionarySecond = new MyDictionarySecond();
             MyDictionaryAny dictionaryActive = new MyDictionaryAny();
             String path;
+            String savePath = "save.txt";
             int menuInput;
 
             while (!exitDictionaryMenu) {
@@ -51,12 +51,16 @@ public class Main {
                 switch (menuInput) {
                     case 1:
                         dictionaryActive = dictionaryFirst;
+                        dictionaryActive.clearDictionary();
+                        dictionaryActive.readFromFile(savePath);
                         System.out.println("Словарь 1 выбран \n");
                         exitFunctionsMenu = false;
                         exitDictionaryMenu = true;
                         break;
                     case 2:
                         dictionaryActive = dictionarySecond;
+                        dictionaryActive.clearDictionary();
+                        dictionaryActive.readFromFile(savePath);
                         System.out.println("Словарь 2 выбран \n");
                         exitFunctionsMenu = false;
                         exitDictionaryMenu = true;
@@ -94,7 +98,8 @@ public class Main {
                         case 2:
                             System.out.println("Введите путь к файлу: ");
                             path = scan.next();
-                            dictionaryActive.writeToFile(path);
+                            savePath = path;
+                            dictionaryActive.writeToFile(savePath);
                             break;
                         case 3:
                             dictionaryActive.printDictionary();
@@ -121,10 +126,12 @@ public class Main {
                         case 7:
                             exitFunctionsMenu = true;
                             exitDictionaryMenu = false;
+                            dictionaryActive.writeToFile(savePath);
                             break;
                         case 8:
                             exitFunctionsMenu = true;
                             exitDictionaryMenu = true;
+                            dictionaryActive.writeToFile(savePath);
                             break;
                         default:
                             System.out.println("Пункт меню с таким номером отсутсвует");
