@@ -1,25 +1,24 @@
 import java.util.Scanner;
 
-/*
- +2 словаря с раными регулярками от интерфейса
- +выбор словаря
- +переиминовать нормально переменные
- +обрабатывать оишбки нормально
- */
 public class Main {
     public static int inputForMenu(Scanner scanner) {
-        int menuInput;
-        while (true) {
-            String inputText = scanner.next();
-            if (inputText.matches("^\\d{0,10}$")) {
-                menuInput = Integer.parseInt(inputText);
-                break;
-            } else {
-                System.out.println("Введите номер пункта меню еще раз");
-            }
+        try {
+            int menuInput;
+            while (true) {
+                String inputText = scanner.nextLine();
+                if (inputText.matches("^\\d{0,10}$")) {
+                    menuInput = Integer.parseInt(inputText);
+                    break;
+                } else {
+                    throw new Exception("Введено не число");
+                }
 
+            }
+            return menuInput;
+        } catch (Exception e) {
+            System.out.println("Введите номер пункта меню еще раз");
+            return 0;
         }
-        return menuInput;
     }
 
     public static void main(String[] args) {
@@ -32,8 +31,11 @@ public class Main {
             MyDictionarySecond dictionarySecond = new MyDictionarySecond();
             MyDictionaryAny dictionaryActive = new MyDictionaryAny();
             String path;
-            String savePath = "save.txt";
+            String savePath;
             int menuInput;
+
+            System.out.println("Введите путь к файлу: ");
+            savePath = scan.nextLine();
 
             while (!exitDictionaryMenu) {
                 System.out.println(
@@ -92,13 +94,13 @@ public class Main {
                     switch (menuInput) {
                         case 1:
                             System.out.println("Введите путь к файлу: ");
-                            path = scan.next();
+                            path = scan.nextLine();
                             dictionaryActive.readFromFile(path);
                             break;
                         case 2:
-                            System.out.println("Введите путь к файлу: ");
-                            path = scan.next();
-                            savePath = path;
+                          //  System.out.println("Введите путь к файлу: ");
+                            //path = scan.nextLine();
+                          //  savePath = path;
                             dictionaryActive.writeToFile(savePath);
                             break;
                         case 3:
@@ -106,20 +108,20 @@ public class Main {
                             break;
                         case 4:
                             System.out.println("Введите ключ по которому необходимо удалить запись в словаре: ");
-                            String keyDelete = scan.next();
+                            String keyDelete = scan.nextLine();
                             dictionaryActive.deleteKey(keyDelete);
                             break;
                         case 5:
                             System.out.println("Введите ключ по которому необходимо найти запись в словаре: ");
-                            String keySearch = scan.next();
+                            String keySearch = scan.nextLine();
                             String val = dictionaryActive.searchKey(keySearch);
                             System.out.println("Значение по запрошеному ключу: " + val);
                             break;
                         case 6:
                             System.out.println("Введите ключ: ");
-                            String keyAdd = scan.next();
+                            String keyAdd = scan.nextLine();
                             System.out.println("Введите значение: ");
-                            String valueAdd = scan.next();
+                            String valueAdd = scan.nextLine();
                             keyAdd += " - " + valueAdd;
                             dictionaryActive.dictionaryPutString(keyAdd, false);
                             break;

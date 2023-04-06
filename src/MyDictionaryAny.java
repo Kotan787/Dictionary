@@ -72,7 +72,7 @@ public class MyDictionaryAny implements IMyDictionary {
 
             if (key.matches(kR) && value.matches(vR)) {
                 dictionary.putIfAbsent(key, value);
-                System.out.println("Строка \"" + string + "\" добалвена в словарь");
+               // System.out.println("Строка \"" + string + "\" добалвена в словарь");
             } else
                 System.out.println("Строка \"" + string + "\" не удовлетворяет условиям словаря по ключу или значению");
         } else
